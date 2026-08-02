@@ -3,5 +3,7 @@
   "description": "Online retail with buyers, products, carts, orders, and reviews",
   "icon": "🛒",
   "category": "retail",
-  "author": "ontology-quest"
+  "author": "ontology-quest",
+  "nameKo": "전자상거래 플랫폼",
+  "descriptionKo": "구매자·상품·장바구니·주문·리뷰를 다루는 온라인 리테일"
 }

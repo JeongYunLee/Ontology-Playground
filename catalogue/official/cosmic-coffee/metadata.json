@@ -9,5 +9,7 @@
     "fabric-iq",
     "demo"
   ],
-  "author": "ontology-quest"
+  "author": "ontology-quest",
+  "nameKo": "포스 커피",
+  "descriptionKo": "공급업체, 상품, 매장, 고객, 주문을 아우르는 현대적 커피숍 체인을 모델링한 샘플 온톨로지입니다."
 }

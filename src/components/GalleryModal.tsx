@@ -16,7 +16,11 @@ interface GalleryModalProps {
 type SourceFilter = 'all' | 'official' | 'community' | 'external';
 
 export function GalleryModal({ onClose }: GalleryModalProps) {
-  const { currentOntology, loadOntology } = useAppStore();
+  const { currentOntology, loadOntology, locale } = useAppStore();
+  const entryName = (e: CatalogueEntry): string =>
+    (locale === 'ko' && e.nameKo) ? e.nameKo : e.name;
+  const entryDescription = (e: CatalogueEntry): string =>
+    (locale === 'ko' && e.descriptionKo) ? e.descriptionKo : e.description;
 
   const [catalogue, setCatalogue] = useState<CatalogueEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -78,9 +82,12 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
         const haystack = [
           entry.name,
           entry.description,
+          entry.nameKo,
+          entry.descriptionKo,
           entry.author,
           ...entry.tags,
         ]
+          .filter(Boolean)
           .join(' ')
           .toLowerCase();
         if (!haystack.includes(q)) return false;
@@ -297,7 +304,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                         {entry.icon || '📄'}
                       </div>
                       <div>
-                        <div style={{ fontSize: 16, fontWeight: 600 }}>{entry.name}</div>
+                        <div style={{ fontSize: 16, fontWeight: 600 }}>{entryName(entry)}</div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                           <span
                             style={{
@@ -358,7 +365,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                   </div>
 
                   <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 10, lineHeight: 1.5 }}>
-                    {entry.description}
+                    {entryDescription(entry)}
                   </p>
 
                   {/* Tags */}

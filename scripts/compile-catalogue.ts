@@ -33,6 +33,8 @@ interface CatalogueMetadata {
   category: string;
   tags?: string[];
   author?: string;
+  nameKo?: string;
+  descriptionKo?: string;
 }
 
 // ------------------------------------------------------------------
@@ -206,6 +208,8 @@ function compile(): Catalogue {
         source,
         ontology,
         bindings,
+        ...(metadata.nameKo && { nameKo: metadata.nameKo }),
+        ...(metadata.descriptionKo && { descriptionKo: metadata.descriptionKo }),
       });
 
       console.log(`✔ ${source}/${slug}`);

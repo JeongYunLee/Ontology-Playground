@@ -3,5 +3,7 @@
   "description": "Academic institution with students, professors, courses, and departments",
   "icon": "🎓",
   "category": "education",
-  "author": "ontology-quest"
+  "author": "ontology-quest",
+  "nameKo": "대학교 시스템",
+  "descriptionKo": "학생·교수·강의·학과를 다루는 학사 기관 온톨로지"
 }

@@ -3,5 +3,7 @@
   "description": "Production with machines, sensors, work orders, and quality checks",
   "icon": "🏭",
   "category": "manufacturing",
-  "author": "ontology-quest"
+  "author": "ontology-quest",
+  "nameKo": "스마트 제조",
+  "descriptionKo": "설비·센서·작업 지시·품질 검사를 다루는 생산 온톨로지"
 }

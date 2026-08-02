@@ -11,6 +11,9 @@ export interface CatalogueEntry {
   source: 'official' | 'community' | 'external';
   ontology: Ontology;
   bindings: DataBinding[];
+  /** Optional Korean display fields (fallback to name/description when missing). */
+  nameKo?: string;
+  descriptionKo?: string;
 }
 
 export interface Catalogue {

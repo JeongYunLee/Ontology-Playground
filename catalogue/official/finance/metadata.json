@@ -3,5 +3,7 @@
   "description": "Financial services with accounts, transactions, loans, and investments",
   "icon": "🏦",
   "category": "finance",
-  "author": "ontology-quest"
+  "author": "ontology-quest",
+  "nameKo": "뱅킹 & 파이낸스",
+  "descriptionKo": "계좌·거래·대출·투자를 다루는 금융 서비스"
 }

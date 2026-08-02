@@ -3,5 +3,7 @@
   "description": "Patient care with providers, appointments, diagnoses, and prescriptions",
   "icon": "🏥",
   "category": "healthcare",
-  "author": "ontology-quest"
+  "author": "ontology-quest",
+  "nameKo": "헬스케어 시스템",
+  "descriptionKo": "의료진·진료 예약·진단·처방을 다루는 환자 진료 온톨로지"
 }

@@ -33,6 +33,16 @@
     "author": {
       "type": "string",
       "description": "Author name or GitHub username"
+    },
+    "nameKo": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional Korean display name (falls back to name when absent)"
+    },
+    "descriptionKo": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional Korean short description (falls back to description when absent)"
     }
   },
   "additionalProperties": false
