@@ -16,6 +16,7 @@
 
   <owl:Class rdf:about="Customer">
     <rdfs:label>Customer</rdfs:label>
+    <rdfs:label xml:lang="ko">고객</rdfs:label>
     <rdfs:comment>A bank customer</rdfs:comment>
     <ont:icon>👤</ont:icon>
     <ont:color>#0078D4</ont:color>
@@ -23,6 +24,7 @@
 
   <owl:Class rdf:about="Account">
     <rdfs:label>Account</rdfs:label>
+    <rdfs:label xml:lang="ko">계좌</rdfs:label>
     <rdfs:comment>A financial account</rdfs:comment>
     <ont:icon>🏦</ont:icon>
     <ont:color>#107C10</ont:color>
@@ -30,6 +32,7 @@
 
   <owl:Class rdf:about="Transaction">
     <rdfs:label>Transaction</rdfs:label>
+    <rdfs:label xml:lang="ko">거래</rdfs:label>
     <rdfs:comment>A financial transaction</rdfs:comment>
     <ont:icon>💳</ont:icon>
     <ont:color>#FFB900</ont:color>
@@ -156,6 +159,7 @@
 
   <owl:ObjectProperty rdf:about="customer_owns_acct">
     <rdfs:label>owns</rdfs:label>
+    <rdfs:label xml:lang="ko">보유한다</rdfs:label>
     <rdfs:domain rdf:resource="Customer"/>
     <rdfs:range rdf:resource="Account"/>
     <rdfs:comment>Customer's accounts</rdfs:comment>
@@ -166,9 +170,11 @@
 
   <owl:ObjectProperty rdf:about="account_has_txn">
     <rdfs:label>has_transaction</rdfs:label>
+    <rdfs:label xml:lang="ko">거래 발생</rdfs:label>
     <rdfs:domain rdf:resource="Account"/>
     <rdfs:range rdf:resource="Transaction"/>
     <rdfs:comment>Account transactions</rdfs:comment>
+    <rdfs:comment xml:lang="ko">계좌에서 발생한 거래</rdfs:comment>
     <ont:cardinality>one-to-many</ont:cardinality>
     <ont:fromEntityId>Account</ont:fromEntityId>
     <ont:toEntityId>Transaction</ont:toEntityId>

@@ -19,6 +19,7 @@
 
     <owl:Class rdf:about="#Student">
         <rdfs:label>Student</rdfs:label>
+        <rdfs:label xml:lang="ko">학생</rdfs:label>
         <rdfs:comment>A student enrolled at the university</rdfs:comment>
         <ont:icon>🎓</ont:icon>
         <ont:color>#0078D4</ont:color>
@@ -26,6 +27,7 @@
 
     <owl:Class rdf:about="#Course">
         <rdfs:label>Course</rdfs:label>
+        <rdfs:label xml:lang="ko">강의</rdfs:label>
         <rdfs:comment>An academic course offered by the university</rdfs:comment>
         <ont:icon>📚</ont:icon>
         <ont:color>#FFB900</ont:color>
@@ -33,6 +35,7 @@
 
     <owl:Class rdf:about="#Enrollment">
         <rdfs:label>Enrollment</rdfs:label>
+        <rdfs:label xml:lang="ko">수강 신청</rdfs:label>
         <rdfs:comment>A student's registration in a specific course</rdfs:comment>
         <ont:icon>📝</ont:icon>
         <ont:color>#00B7C3</ont:color>
@@ -40,6 +43,7 @@
 
     <owl:Class rdf:about="#Professor">
         <rdfs:label>Professor</rdfs:label>
+        <rdfs:label xml:lang="ko">교수</rdfs:label>
         <rdfs:comment>A faculty member who teaches courses and advises students</rdfs:comment>
         <ont:icon>👨‍🏫</ont:icon>
         <ont:color>#107C10</ont:color>
@@ -47,6 +51,7 @@
 
     <owl:Class rdf:about="#Department">
         <rdfs:label>Department</rdfs:label>
+        <rdfs:label xml:lang="ko">학과</rdfs:label>
         <rdfs:comment>An academic department within the university</rdfs:comment>
         <ont:icon>🏛️</ont:icon>
         <ont:color>#8764B8</ont:color>
@@ -234,9 +239,11 @@
 
     <owl:ObjectProperty rdf:about="#student_enrolls">
         <rdfs:label>enrolled_in</rdfs:label>
+        <rdfs:label xml:lang="ko">수강 등록</rdfs:label>
         <rdfs:domain rdf:resource="#Student"/>
         <rdfs:range rdf:resource="#Enrollment"/>
         <rdfs:comment>Student registrations</rdfs:comment>
+        <rdfs:comment xml:lang="ko">학생이 등록한 수강 내역</rdfs:comment>
         <ont:cardinality>one-to-many</ont:cardinality>
         <ont:fromEntityId>Student</ont:fromEntityId>
         <ont:toEntityId>Enrollment</ont:toEntityId>
@@ -244,9 +251,11 @@
 
     <owl:ObjectProperty rdf:about="#enrollment_for">
         <rdfs:label>for_course</rdfs:label>
+        <rdfs:label xml:lang="ko">대상 강의</rdfs:label>
         <rdfs:domain rdf:resource="#Enrollment"/>
         <rdfs:range rdf:resource="#Course"/>
         <rdfs:comment>Course enrollment</rdfs:comment>
+        <rdfs:comment xml:lang="ko">수강 대상 강의</rdfs:comment>
         <ont:cardinality>many-to-one</ont:cardinality>
         <ont:fromEntityId>Enrollment</ont:fromEntityId>
         <ont:toEntityId>Course</ont:toEntityId>
@@ -254,9 +263,11 @@
 
     <owl:ObjectProperty rdf:about="#prof_teaches">
         <rdfs:label>teaches</rdfs:label>
+        <rdfs:label xml:lang="ko">강의한다</rdfs:label>
         <rdfs:domain rdf:resource="#Professor"/>
         <rdfs:range rdf:resource="#Course"/>
         <rdfs:comment>Courses taught</rdfs:comment>
+        <rdfs:comment xml:lang="ko">교수가 담당하는 강의</rdfs:comment>
         <ont:cardinality>one-to-many</ont:cardinality>
         <ont:fromEntityId>Professor</ont:fromEntityId>
         <ont:toEntityId>Course</ont:toEntityId>
@@ -264,9 +275,11 @@
 
     <owl:ObjectProperty rdf:about="#student_advised">
         <rdfs:label>advised_by</rdfs:label>
+        <rdfs:label xml:lang="ko">지도 교수</rdfs:label>
         <rdfs:domain rdf:resource="#Student"/>
         <rdfs:range rdf:resource="#Professor"/>
         <rdfs:comment>Academic advisor</rdfs:comment>
+        <rdfs:comment xml:lang="ko">지도 교수</rdfs:comment>
         <ont:cardinality>many-to-one</ont:cardinality>
         <ont:fromEntityId>Student</ont:fromEntityId>
         <ont:toEntityId>Professor</ont:toEntityId>
@@ -274,9 +287,11 @@
 
     <owl:ObjectProperty rdf:about="#prof_belongs">
         <rdfs:label>belongs_to</rdfs:label>
+        <rdfs:label xml:lang="ko">소속 학과</rdfs:label>
         <rdfs:domain rdf:resource="#Professor"/>
         <rdfs:range rdf:resource="#Department"/>
         <rdfs:comment>Faculty department</rdfs:comment>
+        <rdfs:comment xml:lang="ko">교수가 소속된 학과</rdfs:comment>
         <ont:cardinality>many-to-one</ont:cardinality>
         <ont:fromEntityId>Professor</ont:fromEntityId>
         <ont:toEntityId>Department</ont:toEntityId>
@@ -284,9 +299,11 @@
 
     <owl:ObjectProperty rdf:about="#course_offered">
         <rdfs:label>offered_by</rdfs:label>
+        <rdfs:label xml:lang="ko">개설 학과</rdfs:label>
         <rdfs:domain rdf:resource="#Course"/>
         <rdfs:range rdf:resource="#Department"/>
         <rdfs:comment>Course department</rdfs:comment>
+        <rdfs:comment xml:lang="ko">강의를 개설한 학과</rdfs:comment>
         <ont:cardinality>many-to-one</ont:cardinality>
         <ont:fromEntityId>Course</ont:fromEntityId>
         <ont:toEntityId>Department</ont:toEntityId>

@@ -16,6 +16,7 @@
 
   <owl:Class rdf:about="Patient">
     <rdfs:label>Patient</rdfs:label>
+    <rdfs:label xml:lang="ko">환자</rdfs:label>
     <rdfs:comment>A patient in the healthcare system</rdfs:comment>
     <ont:icon>🏥</ont:icon>
     <ont:color>#0078D4</ont:color>
@@ -23,6 +24,7 @@
 
   <owl:Class rdf:about="Provider">
     <rdfs:label>Provider</rdfs:label>
+    <rdfs:label xml:lang="ko">의료진</rdfs:label>
     <rdfs:comment>A healthcare provider</rdfs:comment>
     <ont:icon>👨‍⚕️</ont:icon>
     <ont:color>#107C10</ont:color>
@@ -30,6 +32,7 @@
 
   <owl:Class rdf:about="Appointment">
     <rdfs:label>Appointment</rdfs:label>
+    <rdfs:label xml:lang="ko">진료 예약</rdfs:label>
     <rdfs:comment>A scheduled appointment between a patient and a provider</rdfs:comment>
     <ont:icon>📅</ont:icon>
     <ont:color>#FFB900</ont:color>
@@ -37,6 +40,7 @@
 
   <owl:Class rdf:about="Diagnosis">
     <rdfs:label>Diagnosis</rdfs:label>
+    <rdfs:label xml:lang="ko">진단</rdfs:label>
     <rdfs:comment>A medical diagnosis assigned to a patient</rdfs:comment>
     <ont:icon>🩺</ont:icon>
     <ont:color>#D13438</ont:color>
@@ -199,6 +203,7 @@
 
   <owl:ObjectProperty rdf:about="patient_has_appt">
     <rdfs:label>has_appointment</rdfs:label>
+    <rdfs:label xml:lang="ko">예약 보유</rdfs:label>
     <rdfs:domain rdf:resource="Patient"/>
     <rdfs:range rdf:resource="Appointment"/>
     <rdfs:comment>Patient's scheduled visits</rdfs:comment>
@@ -209,6 +214,7 @@
 
   <owl:ObjectProperty rdf:about="provider_sees">
     <rdfs:label>sees</rdfs:label>
+    <rdfs:label xml:lang="ko">진료한다</rdfs:label>
     <rdfs:domain rdf:resource="Provider"/>
     <rdfs:range rdf:resource="Appointment"/>
     <rdfs:comment>Provider's appointments</rdfs:comment>
@@ -219,9 +225,11 @@
 
   <owl:ObjectProperty rdf:about="patient_diagnosed">
     <rdfs:label>diagnosed_with</rdfs:label>
+    <rdfs:label xml:lang="ko">진단 받음</rdfs:label>
     <rdfs:domain rdf:resource="Patient"/>
     <rdfs:range rdf:resource="Diagnosis"/>
     <rdfs:comment>Patient diagnoses</rdfs:comment>
+    <rdfs:comment xml:lang="ko">환자에게 내려진 진단</rdfs:comment>
     <ont:cardinality>one-to-many</ont:cardinality>
     <ont:fromEntityId>Patient</ont:fromEntityId>
     <ont:toEntityId>Diagnosis</ont:toEntityId>
@@ -229,9 +237,11 @@
 
   <owl:ObjectProperty rdf:about="provider_diagnoses">
     <rdfs:label>diagnoses</rdfs:label>
+    <rdfs:label xml:lang="ko">진단한다</rdfs:label>
     <rdfs:domain rdf:resource="Provider"/>
     <rdfs:range rdf:resource="Diagnosis"/>
     <rdfs:comment>Diagnoses made by provider</rdfs:comment>
+    <rdfs:comment xml:lang="ko">의료진이 내린 진단</rdfs:comment>
     <ont:cardinality>one-to-many</ont:cardinality>
     <ont:fromEntityId>Provider</ont:fromEntityId>
     <ont:toEntityId>Diagnosis</ont:toEntityId>

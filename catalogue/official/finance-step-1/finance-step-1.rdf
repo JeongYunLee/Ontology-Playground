@@ -16,6 +16,7 @@
 
   <owl:Class rdf:about="Customer">
     <rdfs:label>Customer</rdfs:label>
+    <rdfs:label xml:lang="ko">고객</rdfs:label>
     <rdfs:comment>A bank customer</rdfs:comment>
     <ont:icon>👤</ont:icon>
     <ont:color>#0078D4</ont:color>
@@ -23,6 +24,7 @@
 
   <owl:Class rdf:about="Account">
     <rdfs:label>Account</rdfs:label>
+    <rdfs:label xml:lang="ko">계좌</rdfs:label>
     <rdfs:comment>A financial account</rdfs:comment>
     <ont:icon>🏦</ont:icon>
     <ont:color>#107C10</ont:color>
@@ -110,6 +112,7 @@
 
   <owl:ObjectProperty rdf:about="customer_owns_acct">
     <rdfs:label>owns</rdfs:label>
+    <rdfs:label xml:lang="ko">보유한다</rdfs:label>
     <rdfs:domain rdf:resource="Customer"/>
     <rdfs:range rdf:resource="Account"/>
     <rdfs:comment>Customer's accounts</rdfs:comment>

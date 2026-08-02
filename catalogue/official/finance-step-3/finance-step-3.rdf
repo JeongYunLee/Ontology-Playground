@@ -16,6 +16,7 @@
 
   <owl:Class rdf:about="Customer">
     <rdfs:label>Customer</rdfs:label>
+    <rdfs:label xml:lang="ko">고객</rdfs:label>
     <rdfs:comment>A bank customer</rdfs:comment>
     <ont:icon>👤</ont:icon>
     <ont:color>#0078D4</ont:color>
@@ -23,6 +24,7 @@
 
   <owl:Class rdf:about="Account">
     <rdfs:label>Account</rdfs:label>
+    <rdfs:label xml:lang="ko">계좌</rdfs:label>
     <rdfs:comment>A financial account</rdfs:comment>
     <ont:icon>🏦</ont:icon>
     <ont:color>#107C10</ont:color>
@@ -30,6 +32,7 @@
 
   <owl:Class rdf:about="Transaction">
     <rdfs:label>Transaction</rdfs:label>
+    <rdfs:label xml:lang="ko">거래</rdfs:label>
     <rdfs:comment>A financial transaction</rdfs:comment>
     <ont:icon>💳</ont:icon>
     <ont:color>#FFB900</ont:color>
@@ -37,6 +40,7 @@
 
   <owl:Class rdf:about="Loan">
     <rdfs:label>Loan</rdfs:label>
+    <rdfs:label xml:lang="ko">대출</rdfs:label>
     <rdfs:comment>A loan product</rdfs:comment>
     <ont:icon>📄</ont:icon>
     <ont:color>#D13438</ont:color>
@@ -44,6 +48,7 @@
 
   <owl:Class rdf:about="Investment">
     <rdfs:label>Investment</rdfs:label>
+    <rdfs:label xml:lang="ko">투자</rdfs:label>
     <rdfs:comment>An investment holding</rdfs:comment>
     <ont:icon>📈</ont:icon>
     <ont:color>#8764B8</ont:color>
@@ -251,6 +256,7 @@
 
   <owl:ObjectProperty rdf:about="customer_owns_acct">
     <rdfs:label>owns</rdfs:label>
+    <rdfs:label xml:lang="ko">보유한다</rdfs:label>
     <rdfs:domain rdf:resource="Customer"/>
     <rdfs:range rdf:resource="Account"/>
     <rdfs:comment>Customer's accounts</rdfs:comment>
@@ -261,9 +267,11 @@
 
   <owl:ObjectProperty rdf:about="account_has_txn">
     <rdfs:label>has_transaction</rdfs:label>
+    <rdfs:label xml:lang="ko">거래 발생</rdfs:label>
     <rdfs:domain rdf:resource="Account"/>
     <rdfs:range rdf:resource="Transaction"/>
     <rdfs:comment>Account transactions</rdfs:comment>
+    <rdfs:comment xml:lang="ko">계좌에서 발생한 거래</rdfs:comment>
     <ont:cardinality>one-to-many</ont:cardinality>
     <ont:fromEntityId>Account</ont:fromEntityId>
     <ont:toEntityId>Transaction</ont:toEntityId>
@@ -271,9 +279,11 @@
 
   <owl:ObjectProperty rdf:about="customer_has_loan">
     <rdfs:label>has_loan</rdfs:label>
+    <rdfs:label xml:lang="ko">대출 보유</rdfs:label>
     <rdfs:domain rdf:resource="Customer"/>
     <rdfs:range rdf:resource="Loan"/>
     <rdfs:comment>Customer loans</rdfs:comment>
+    <rdfs:comment xml:lang="ko">고객의 대출 계약</rdfs:comment>
     <ont:cardinality>one-to-many</ont:cardinality>
     <ont:fromEntityId>Customer</ont:fromEntityId>
     <ont:toEntityId>Loan</ont:toEntityId>
@@ -281,9 +291,11 @@
 
   <owl:ObjectProperty rdf:about="account_funds_loan">
     <rdfs:label>funds</rdfs:label>
+    <rdfs:label xml:lang="ko">상환 계좌</rdfs:label>
     <rdfs:domain rdf:resource="Account"/>
     <rdfs:range rdf:resource="Loan"/>
     <rdfs:comment>Payment source</rdfs:comment>
+    <rdfs:comment xml:lang="ko">대출 상환 자금 출처</rdfs:comment>
     <ont:cardinality>one-to-many</ont:cardinality>
     <ont:fromEntityId>Account</ont:fromEntityId>
     <ont:toEntityId>Loan</ont:toEntityId>
@@ -291,9 +303,11 @@
 
   <owl:ObjectProperty rdf:about="customer_holds">
     <rdfs:label>holds</rdfs:label>
+    <rdfs:label xml:lang="ko">보유 투자</rdfs:label>
     <rdfs:domain rdf:resource="Customer"/>
     <rdfs:range rdf:resource="Investment"/>
     <rdfs:comment>Investment portfolio</rdfs:comment>
+    <rdfs:comment xml:lang="ko">투자 포트폴리오</rdfs:comment>
     <ont:cardinality>one-to-many</ont:cardinality>
     <ont:fromEntityId>Customer</ont:fromEntityId>
     <ont:toEntityId>Investment</ont:toEntityId>
@@ -301,9 +315,11 @@
 
   <owl:ObjectProperty rdf:about="account_linked">
     <rdfs:label>linked_to</rdfs:label>
+    <rdfs:label xml:lang="ko">연결 대상</rdfs:label>
     <rdfs:domain rdf:resource="Account"/>
     <rdfs:range rdf:resource="Investment"/>
     <rdfs:comment>Brokerage account link</rdfs:comment>
+    <rdfs:comment xml:lang="ko">증권 계좌 연결</rdfs:comment>
     <ont:cardinality>one-to-many</ont:cardinality>
     <ont:fromEntityId>Account</ont:fromEntityId>
     <ont:toEntityId>Investment</ont:toEntityId>

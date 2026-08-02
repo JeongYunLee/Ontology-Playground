@@ -18,6 +18,7 @@
 
   <owl:Class rdf:about="Buyer">
     <rdfs:label>Buyer</rdfs:label>
+    <rdfs:label xml:lang="ko">구매자</rdfs:label>
     <rdfs:comment>A customer who purchases products on the platform.</rdfs:comment>
     <ont:icon>🛒</ont:icon>
     <ont:color>#0078D4</ont:color>
@@ -25,6 +26,7 @@
 
   <owl:Class rdf:about="Product">
     <rdfs:label>Product</rdfs:label>
+    <rdfs:label xml:lang="ko">상품</rdfs:label>
     <rdfs:comment>An item available for purchase on the platform.</rdfs:comment>
     <ont:icon>📦</ont:icon>
     <ont:color>#107C10</ont:color>
@@ -32,6 +34,7 @@
 
   <owl:Class rdf:about="Order">
     <rdfs:label>Order</rdfs:label>
+    <rdfs:label xml:lang="ko">주문</rdfs:label>
     <rdfs:comment>A purchase order placed by a buyer.</rdfs:comment>
     <ont:icon>📋</ont:icon>
     <ont:color>#8764B8</ont:color>
@@ -207,6 +210,7 @@
 
   <owl:ObjectProperty rdf:about="places">
     <rdfs:label>places</rdfs:label>
+    <rdfs:label xml:lang="ko">주문한다</rdfs:label>
     <rdfs:domain rdf:resource="Buyer"/>
     <rdfs:range rdf:resource="Order"/>
     <rdfs:comment>A buyer places an order.</rdfs:comment>
@@ -217,6 +221,7 @@
 
   <owl:ObjectProperty rdf:about="includes">
     <rdfs:label>includes</rdfs:label>
+    <rdfs:label xml:lang="ko">포함한다</rdfs:label>
     <rdfs:domain rdf:resource="Order"/>
     <rdfs:range rdf:resource="Product"/>
     <rdfs:comment>An order includes one or more products.</rdfs:comment>
@@ -227,6 +232,7 @@
 
   <owl:ObjectProperty rdf:about="has_cart">
     <rdfs:label>has_cart</rdfs:label>
+    <rdfs:label xml:lang="ko">보유 장바구니</rdfs:label>
     <rdfs:domain rdf:resource="Buyer"/>
     <rdfs:range rdf:resource="ShoppingCart"/>
     <rdfs:comment>A buyer has a shopping cart.</rdfs:comment>
@@ -237,6 +243,7 @@
 
   <owl:ObjectProperty rdf:about="contains">
     <rdfs:label>contains</rdfs:label>
+    <rdfs:label xml:lang="ko">담고 있다</rdfs:label>
     <rdfs:domain rdf:resource="ShoppingCart"/>
     <rdfs:range rdf:resource="Product"/>
     <rdfs:comment>A shopping cart contains products.</rdfs:comment>
