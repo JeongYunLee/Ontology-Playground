@@ -146,6 +146,35 @@ function parseFrontmatter<T extends Record<string, string>>(
 
 const COURSE_REQUIRED = ['title', 'slug', 'description', 'type', 'icon'] as const;
 const ARTICLE_REQUIRED = ['title', 'slug', 'description', 'order'] as const;
+// Korean translations only need title + description; slug/order/embed come from the English source.
+const KO_REQUIRED = ['title', 'description'] as const;
+
+/**
+ * Try to read a Korean translation sibling. Returns null if the file
+ * does not exist. Errors are surfaced so bad translations fail the build.
+ */
+function readKoTranslation(
+  koPath: string,
+): { title: string; description: string; html: string } | null {
+  if (!existsSync(koPath)) return null;
+  const content = readFileSync(koPath, 'utf-8');
+  const { meta, body } = parseFrontmatter<Record<string, string>>(content, koPath, KO_REQUIRED);
+  const rawHtml = marked.parse(body, { async: false }) as string;
+  return {
+    title: meta['title'],
+    description: meta['description'],
+    html: sanitizeLearnHtml(rawHtml),
+  };
+}
+
+function readKoCourseMeta(
+  koPath: string,
+): { title: string; description: string } | null {
+  if (!existsSync(koPath)) return null;
+  const content = readFileSync(koPath, 'utf-8');
+  const { meta } = parseFrontmatter<Record<string, string>>(content, koPath, KO_REQUIRED);
+  return { title: meta['title'], description: meta['description'] };
+}
 
 function compile(): LearnManifest {
   const courses: LearnCourse[] = [];
@@ -171,6 +200,7 @@ function compile(): LearnManifest {
 
     // Parse course metadata
     let courseMeta: CourseFrontmatter;
+    let courseKo: { title: string; description: string } | null = null;
     try {
       const metaContent = readFileSync(metaPath, 'utf-8');
       const parsed = parseFrontmatter<Record<string, string>>(metaContent, metaPath, COURSE_REQUIRED);
@@ -184,20 +214,23 @@ function compile(): LearnManifest {
       if (courseMeta.type !== 'path' && courseMeta.type !== 'lab') {
         throw new Error(`${metaPath}: "type" must be "path" or "lab"`);
       }
+      courseKo = readKoCourseMeta(join(courseDir, '_meta.ko.md'));
     } catch (e) {
       console.error(`✘ ${metaPath}: ${(e as Error).message}`);
       errors++;
       continue;
     }
 
-    // Parse articles in this course
+    // Parse articles in this course.
+    // English sources: *.md, excluding _meta.md and any *.ko.md siblings.
     const articles: LearnArticle[] = [];
     const files = readdirSync(courseDir)
-      .filter((f) => f.endsWith('.md') && f !== '_meta.md')
+      .filter((f) => f.endsWith('.md') && !f.endsWith('.ko.md') && f !== '_meta.md')
       .sort();
 
     for (const file of files) {
       const filePath = join(courseDir, file);
+      const koFilePath = join(courseDir, file.replace(/\.md$/, '.ko.md'));
       try {
         const content = readFileSync(filePath, 'utf-8');
         const { meta, body } = parseFrontmatter<Record<string, string>>(
@@ -212,6 +245,8 @@ function compile(): LearnManifest {
         const rawHtml = marked.parse(body, { async: false }) as string;
         const html = sanitizeLearnHtml(rawHtml);
 
+        const ko = readKoTranslation(koFilePath);
+
         articles.push({
           slug: meta['slug'],
           title: meta['title'],
@@ -220,9 +255,14 @@ function compile(): LearnManifest {
           embed: meta['embed'] || undefined,
           reviewStatus: meta['reviewStatus'] || undefined,
           html,
+          ...(ko && {
+            titleKo: ko.title,
+            descriptionKo: ko.description,
+            htmlKo: ko.html,
+          }),
         });
 
-        console.log(`  ✔ ${courseMeta.slug}/${meta['slug']}`);
+        console.log(`  ✔ ${courseMeta.slug}/${meta['slug']}${ko ? ' [+ko]' : ''}`);
       } catch (e) {
         console.error(`  ✘ ${file}: ${(e as Error).message}`);
         errors++;
@@ -238,6 +278,10 @@ function compile(): LearnManifest {
       type: courseMeta.type,
       icon: courseMeta.icon,
       articles,
+      ...(courseKo && {
+        titleKo: courseKo.title,
+        descriptionKo: courseKo.description,
+      }),
     });
 
     console.log(`✔ ${courseMeta.slug} (${articles.length} articles)`);

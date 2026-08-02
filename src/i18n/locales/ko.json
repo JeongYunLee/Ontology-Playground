@@ -1,0 +1,10 @@
+{
+  "language": {
+    "name": "한국어",
+    "switchTo": "언어 전환"
+  },
+  "common": {
+    "loading": "불러오는 중…",
+    "notAvailable": "아직 한국어로 제공되지 않는 항목입니다"
+  }
+}

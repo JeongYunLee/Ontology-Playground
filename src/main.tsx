@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
+import './i18n'
 
 // Note: StrictMode disabled due to Cytoscape.js incompatibility with double-mounting
 // This only affects development - production builds don't use StrictMode anyway

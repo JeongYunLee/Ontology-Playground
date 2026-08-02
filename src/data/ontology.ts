@@ -22,6 +22,9 @@ export interface Relationship {
   cardinality: 'one-to-one' | 'one-to-many' | 'many-to-one' | 'many-to-many';
   description?: string;
   attributes?: RelationshipAttribute[];
+  /** Optional Korean label/description from rdfs:label xml:lang="ko" */
+  nameKo?: string;
+  descriptionKo?: string;
 }
 
 export interface EntityType {
@@ -31,6 +34,9 @@ export interface EntityType {
   properties: Property[];
   icon: string;
   color: string;
+  /** Optional Korean label/description from rdfs:label xml:lang="ko" */
+  nameKo?: string;
+  descriptionKo?: string;
 }
 
 export interface EntityInstance {
@@ -44,6 +50,9 @@ export interface Ontology {
   description: string;
   entityTypes: EntityType[];
   relationships: Relationship[];
+  /** Optional Korean label/description for the ontology itself */
+  nameKo?: string;
+  descriptionKo?: string;
 }
 
 export interface DataBinding {

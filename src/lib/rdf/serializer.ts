@@ -67,8 +67,14 @@ export function serializeToRDF(
   // Ontology declaration
   rdf += `    <owl:Ontology rdf:about="${baseUri}">\n`;
   rdf += `        <rdfs:label>${escapeXml(ontology.name)}</rdfs:label>\n`;
+  if (ontology.nameKo) {
+    rdf += `        <rdfs:label xml:lang="ko">${escapeXml(ontology.nameKo)}</rdfs:label>\n`;
+  }
   if (ontology.description) {
     rdf += `        <rdfs:comment>${escapeXml(ontology.description)}</rdfs:comment>\n`;
+  }
+  if (ontology.descriptionKo) {
+    rdf += `        <rdfs:comment xml:lang="ko">${escapeXml(ontology.descriptionKo)}</rdfs:comment>\n`;
   }
   rdf += '    </owl:Ontology>\n\n';
 
@@ -81,8 +87,14 @@ export function serializeToRDF(
     const className = capitalize(entity.id);
     rdf += `    <owl:Class rdf:about="${baseUri}${className}">\n`;
     rdf += `        <rdfs:label>${escapeXml(entity.name)}</rdfs:label>\n`;
+    if (entity.nameKo) {
+      rdf += `        <rdfs:label xml:lang="ko">${escapeXml(entity.nameKo)}</rdfs:label>\n`;
+    }
     if (entity.description) {
       rdf += `        <rdfs:comment>${escapeXml(entity.description)}</rdfs:comment>\n`;
+    }
+    if (entity.descriptionKo) {
+      rdf += `        <rdfs:comment xml:lang="ko">${escapeXml(entity.descriptionKo)}</rdfs:comment>\n`;
     }
     // Store icon and color as custom annotations
     rdf += `        <ont:icon>${escapeXml(entity.icon)}</ont:icon>\n`;
@@ -136,10 +148,16 @@ export function serializeToRDF(
 
     rdf += `    <owl:ObjectProperty rdf:about="${baseUri}${rel.id}">\n`;
     rdf += `        <rdfs:label>${escapeXml(rel.name)}</rdfs:label>\n`;
+    if (rel.nameKo) {
+      rdf += `        <rdfs:label xml:lang="ko">${escapeXml(rel.nameKo)}</rdfs:label>\n`;
+    }
     rdf += `        <rdfs:domain rdf:resource="${baseUri}${fromClass}"/>\n`;
     rdf += `        <rdfs:range rdf:resource="${baseUri}${toClass}"/>\n`;
     if (rel.description) {
       rdf += `        <rdfs:comment>${escapeXml(rel.description)}</rdfs:comment>\n`;
+    }
+    if (rel.descriptionKo) {
+      rdf += `        <rdfs:comment xml:lang="ko">${escapeXml(rel.descriptionKo)}</rdfs:comment>\n`;
     }
     rdf += `        <ont:cardinality>${escapeXml(rel.cardinality)}</ont:cardinality>\n`;
     rdf += `        <ont:fromEntityId>${escapeXml(rel.from)}</ont:fromEntityId>\n`;

@@ -10,6 +10,10 @@ export interface LearnArticle {
   reviewStatus?: string;
   /** HTML content rendered from Markdown */
   html: string;
+  // ── Optional Korean translations (populated from *.ko.md sibling) ──
+  titleKo?: string;
+  descriptionKo?: string;
+  htmlKo?: string;
 }
 
 /** A course groups related articles into a learning path or hands-on lab. */
@@ -20,6 +24,9 @@ export interface LearnCourse {
   type: 'path' | 'lab';
   icon: string;
   articles: LearnArticle[];
+  // ── Optional Korean translations (populated from _meta.ko.md) ──
+  titleKo?: string;
+  descriptionKo?: string;
 }
 
 /** The full learn manifest emitted by compile-learn.ts */

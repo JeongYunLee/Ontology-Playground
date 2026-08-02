@@ -1,9 +1,11 @@
 import { useRef, useEffect } from 'react';
 import { useAppStore } from '../store/appStore';
+import { useLocalizedOntology } from '../lib/rdf/i18n';
 import { Database, ArrowRight, Key, Link2, Layers, Box, GitBranch } from 'lucide-react';
 
 export function InspectorPanel() {
-  const { currentOntology, dataBindings, selectedEntityId, selectedRelationshipId, showDataBindings, activeQuest, currentStepIndex, advanceQuestStep } = useAppStore();
+  const { dataBindings, selectedEntityId, selectedRelationshipId, showDataBindings, activeQuest, currentStepIndex, advanceQuestStep } = useAppStore();
+  const currentOntology = useLocalizedOntology();
   const panelRef = useRef<HTMLDivElement>(null);
 
   const tryAdvancePropertyQuestStep = (propertyName: string) => {

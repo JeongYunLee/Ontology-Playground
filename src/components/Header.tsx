@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAppStore, THEME_OPTIONS } from '../store/appStore';
+import { SUPPORTED_LOCALES } from '../i18n';
 import { useRoute } from '../hooks/useRoute';
 import { routeToHash } from '../lib/router';
 import { encodeSharePayload } from '../lib/shareCodec';
 import { serializeToRDF } from '../lib/rdf/serializer';
-import { Palette, Check, Database, Trophy, HelpCircle, FileJson, LayoutGrid, Sparkles, FileText, Share2, PenTool, BookOpen, Menu, X, Download, Info } from 'lucide-react';
+import { Palette, Check, Database, Trophy, HelpCircle, FileJson, LayoutGrid, Sparkles, FileText, Share2, PenTool, BookOpen, Menu, X, Download, Info, Languages } from 'lucide-react';
 
 interface HeaderProps {
   onAboutClick: () => void;
@@ -19,7 +20,10 @@ interface HeaderProps {
 }
 
 export function Header({ onAboutClick, onHelpClick, onDataSourcesClick, onImportExportClick, onGalleryClick, onDesignerClick, onLearnClick, onNLBuilderClick, onSummaryClick }: HeaderProps) {
-  const { theme, setTheme, totalPoints, earnedBadges, currentOntology, dataBindings } = useAppStore();
+  const { theme, setTheme, locale, setLocale, totalPoints, earnedBadges, currentOntology, dataBindings } = useAppStore();
+  const nextLocale = SUPPORTED_LOCALES[(SUPPORTED_LOCALES.indexOf(locale) + 1) % SUPPORTED_LOCALES.length];
+  const localeButtonLabel = locale === 'ko' ? '한' : 'EN';
+  const localeTooltip = locale === 'ko' ? 'English로 전환' : 'Switch to 한국어';
   const route = useRoute();
   const [shareStatus, setShareStatus] = useState<'idle' | 'copying' | 'copied' | 'downloaded'>('idle');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -167,6 +171,15 @@ export function Header({ onAboutClick, onHelpClick, onDataSourcesClick, onImport
         </button>
         <button className="icon-btn" onClick={onDataSourcesClick} data-tooltip="Data Sources" aria-label="Data Sources">
           <Database size={20} />
+        </button>
+        <button
+          className="icon-btn locale-btn"
+          onClick={() => setLocale(nextLocale)}
+          data-tooltip={localeTooltip}
+          aria-label={localeTooltip}
+        >
+          <Languages size={20} />
+          <span className="locale-btn-label" aria-hidden="true">{localeButtonLabel}</span>
         </button>
         <div className="theme-picker" ref={themeMenuRef}>
           <button

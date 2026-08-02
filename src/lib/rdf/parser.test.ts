@@ -407,4 +407,65 @@ describe('parseRDF', () => {
       expect(ontology.entityTypes[0].name).toBe('Widget');
     });
   });
+
+  describe('xml:lang multilingual labels', () => {
+    const bilingualRdf = `<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+    xml:base="http://example.org/ontology/bilingual/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:ont="http://example.org/ontology/bilingual/">
+    <owl:Ontology rdf:about="http://example.org/ontology/bilingual/">
+        <rdfs:label>Fourth Coffee</rdfs:label>
+        <rdfs:label xml:lang="ko">포스 커피</rdfs:label>
+        <rdfs:comment>Sample ontology</rdfs:comment>
+        <rdfs:comment xml:lang="ko">샘플 온톨로지</rdfs:comment>
+    </owl:Ontology>
+    <owl:Class rdf:about="http://example.org/ontology/bilingual/Customer">
+        <rdfs:label>Customer</rdfs:label>
+        <rdfs:label xml:lang="ko">고객</rdfs:label>
+        <rdfs:comment>Buys coffee</rdfs:comment>
+        <rdfs:comment xml:lang="ko">커피를 구매하는 사람</rdfs:comment>
+        <ont:icon>👤</ont:icon>
+        <ont:color>#0078D4</ont:color>
+    </owl:Class>
+    <owl:Class rdf:about="http://example.org/ontology/bilingual/Order">
+        <rdfs:label>Order</rdfs:label>
+        <ont:icon>🧾</ont:icon>
+        <ont:color>#107C10</ont:color>
+    </owl:Class>
+    <owl:ObjectProperty rdf:about="http://example.org/ontology/bilingual/places">
+        <rdfs:label>places</rdfs:label>
+        <rdfs:label xml:lang="ko">주문한다</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/bilingual/Customer"/>
+        <rdfs:range rdf:resource="http://example.org/ontology/bilingual/Order"/>
+        <ont:cardinality>one-to-many</ont:cardinality>
+    </owl:ObjectProperty>
+</rdf:RDF>`;
+
+    it('extracts English label from the un-tagged rdfs:label (default)', () => {
+      const { ontology } = parseRDF(bilingualRdf);
+      expect(ontology.name).toBe('Fourth Coffee');
+      expect(ontology.entityTypes.find((e) => e.id === 'customer')?.name).toBe('Customer');
+      expect(ontology.relationships[0].name).toBe('places');
+    });
+
+    it('extracts Korean label into nameKo when xml:lang="ko" is present', () => {
+      const { ontology } = parseRDF(bilingualRdf);
+      expect(ontology.nameKo).toBe('포스 커피');
+      expect(ontology.descriptionKo).toBe('샘플 온톨로지');
+      const customer = ontology.entityTypes.find((e) => e.id === 'customer');
+      expect(customer?.nameKo).toBe('고객');
+      expect(customer?.descriptionKo).toBe('커피를 구매하는 사람');
+      expect(ontology.relationships[0].nameKo).toBe('주문한다');
+    });
+
+    it('leaves nameKo undefined when no Korean label is present', () => {
+      const { ontology } = parseRDF(bilingualRdf);
+      const order = ontology.entityTypes.find((e) => e.id === 'order');
+      expect(order?.nameKo).toBeUndefined();
+      expect(order?.descriptionKo).toBeUndefined();
+    });
+  });
 });

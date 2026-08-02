@@ -17,6 +17,10 @@ export class RDFParseError extends Error {
 /**
  * Get the text content of a child element by local name within a parent element.
  * Searches across common RDF/OWL namespaces.
+ *
+ * When multiple matches exist (e.g. multilingual rdfs:label), prefers a child
+ * WITHOUT xml:lang, then any of them. Use getChildTextByLang() to fetch a
+ * specific language variant.
  */
 function getChildText(
   parent: Element,
@@ -26,7 +30,16 @@ function getChildText(
   // Try namespace-aware lookup first
   if (namespace) {
     const els = parent.getElementsByTagNameNS(namespace, localName);
-    if (els.length > 0) return els[0].textContent;
+    if (els.length > 0) {
+      // Prefer the un-tagged variant so that adding an xml:lang="ko" sibling
+      // doesn't change what "the label" means to legacy callers.
+      for (let i = 0; i < els.length; i++) {
+        const lang = els[i].getAttribute('xml:lang')
+          || els[i].getAttributeNS('http://www.w3.org/XML/1998/namespace', 'lang');
+        if (!lang) return els[i].textContent;
+      }
+      return els[0].textContent;
+    }
   }
 
   // Fallback: try all children by local name match
@@ -36,6 +49,26 @@ function getChildText(
     if (childLocal === localName) {
       return child.textContent;
     }
+  }
+  return null;
+}
+
+/**
+ * Return the text of a child element matching (localName, namespace) whose
+ * xml:lang attribute equals the target language. Returns null if no such
+ * variant exists.
+ */
+function getChildTextByLang(
+  parent: Element,
+  localName: string,
+  namespace: string,
+  lang: string,
+): string | null {
+  const els = parent.getElementsByTagNameNS(namespace, localName);
+  for (let i = 0; i < els.length; i++) {
+    const elLang = els[i].getAttribute('xml:lang')
+      || els[i].getAttributeNS('http://www.w3.org/XML/1998/namespace', 'lang');
+    if (elLang === lang) return els[i].textContent;
   }
   return null;
 }
@@ -157,12 +190,16 @@ export function parseRDF(rdfXml: string): { ontology: Ontology; bindings: DataBi
   // --- Extract ontology metadata ---
   let ontologyName = '';
   let ontologyDescription = '';
+  let ontologyNameKo: string | undefined;
+  let ontologyDescriptionKo: string | undefined;
 
   const ontologyEls = root.getElementsByTagNameNS(OWL_NS, 'Ontology');
   if (ontologyEls.length > 0) {
     const ontEl = ontologyEls[0];
     ontologyName = getChildText(ontEl, 'label', RDFS_NS) || '';
     ontologyDescription = getChildText(ontEl, 'comment', RDFS_NS) || '';
+    ontologyNameKo = getChildTextByLang(ontEl, 'label', RDFS_NS, 'ko') || undefined;
+    ontologyDescriptionKo = getChildTextByLang(ontEl, 'comment', RDFS_NS, 'ko') || undefined;
   }
 
   // --- Extract OWL Classes → EntityTypes ---
@@ -178,6 +215,8 @@ export function parseRDF(rdfXml: string): { ontology: Ontology; bindings: DataBi
     const entityId = uncapitalize(className);
     const label = getChildText(el, 'label', RDFS_NS) || className;
     const description = getChildText(el, 'comment', RDFS_NS) || '';
+    const labelKo = getChildTextByLang(el, 'label', RDFS_NS, 'ko') || undefined;
+    const descriptionKo = getChildTextByLang(el, 'comment', RDFS_NS, 'ko') || undefined;
     const icon = getChildText(el, 'icon') || '📦';
     const color = getChildText(el, 'color') || '#0078D4';
 
@@ -188,6 +227,8 @@ export function parseRDF(rdfXml: string): { ontology: Ontology; bindings: DataBi
       icon,
       color,
       properties: [],
+      ...(labelKo && { nameKo: labelKo }),
+      ...(descriptionKo && { descriptionKo }),
     });
   }
 
@@ -279,6 +320,8 @@ export function parseRDF(rdfXml: string): { ontology: Ontology; bindings: DataBi
     const relId = localNameFromUri(about);
     const label = getChildText(el, 'label', RDFS_NS) || relId;
     const description = getChildText(el, 'comment', RDFS_NS) || undefined;
+    const labelKo = getChildTextByLang(el, 'label', RDFS_NS, 'ko') || undefined;
+    const descriptionKo = getChildTextByLang(el, 'comment', RDFS_NS, 'ko') || undefined;
 
     // Get from/to entity IDs — prefer explicit ont:fromEntityId/toEntityId,
     // fallback to domain/range URI.  Always uncapitalize to match entity IDs.
@@ -308,6 +351,8 @@ export function parseRDF(rdfXml: string): { ontology: Ontology; bindings: DataBi
     };
 
     if (description) rel.description = description;
+    if (labelKo) rel.nameKo = labelKo;
+    if (descriptionKo) rel.descriptionKo = descriptionKo;
 
     // Attach relationship attributes
     const attrs = relAttrMap.get(relId);
@@ -361,6 +406,9 @@ export function parseRDF(rdfXml: string): { ontology: Ontology; bindings: DataBi
     entityTypes,
     relationships,
   };
+
+  if (ontologyNameKo) ontology.nameKo = ontologyNameKo;
+  if (ontologyDescriptionKo) ontology.descriptionKo = ontologyDescriptionKo;
 
   return { ontology, bindings };
 }

@@ -4,6 +4,13 @@ import { quests as defaultQuests } from '../data/quests';
 import type { Ontology, DataBinding } from '../data/ontology';
 import { cosmicCoffeeOntology, sampleBindings } from '../data/ontology';
 import { generateQuestsForOntology } from '../data/questGenerator';
+import {
+  changeLocale,
+  DEFAULT_LOCALE,
+  LOCALE_STORAGE_KEY,
+  normalizeLocale,
+  type AppLocale,
+} from '../i18n';
 
 export type ThemeId = 'dark' | 'light' | 'aurora' | 'crimson';
 
@@ -56,6 +63,21 @@ function getInitialTheme(): ThemeId {
 
 const initialTheme = getInitialTheme();
 
+function getInitialLocale(): AppLocale {
+  if (typeof window === 'undefined' || !('localStorage' in window)) {
+    return DEFAULT_LOCALE;
+  }
+  try {
+    const stored = window.localStorage.getItem(LOCALE_STORAGE_KEY);
+    if (stored) return normalizeLocale(stored);
+    return normalizeLocale(window.navigator?.language);
+  } catch {
+    return DEFAULT_LOCALE;
+  }
+}
+
+const initialLocale = getInitialLocale();
+
 interface AppState {
   // Ontology State
   currentOntology: Ontology;
@@ -69,6 +91,7 @@ interface AppState {
   showDataBindings: boolean;
   theme: ThemeId;
   darkMode: boolean;
+  locale: AppLocale;
   
   // Quest State
   availableQuests: Quest[];
@@ -96,6 +119,7 @@ interface AppState {
   toggleDataBindings: () => void;
   setTheme: (theme: ThemeId) => void;
   toggleDarkMode: () => void;
+  setLocale: (locale: AppLocale) => void;
   
   // Quest Actions
   startQuest: (questId: string) => void;
@@ -122,6 +146,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   showDataBindings: false,
   theme: initialTheme,
   darkMode: isDarkTheme(initialTheme),
+  locale: initialLocale,
   
   // Initial Quest State - use default quests for Fourth Coffee
   availableQuests: defaultQuests,
@@ -199,6 +224,15 @@ export const useAppStore = create<AppState>((set, get) => ({
   toggleDarkMode: () => {
     const next: ThemeId = isDarkTheme(get().theme) ? 'light' : 'dark';
     get().setTheme(next);
+  },
+  setLocale: (locale) => {
+    try {
+      localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+    } catch {
+      // Ignore persistence errors
+    }
+    changeLocale(locale);
+    set({ locale });
   },
   
   // Quest Actions

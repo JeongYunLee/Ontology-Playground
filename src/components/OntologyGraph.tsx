@@ -3,6 +3,7 @@ import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import type { Core, EventObject, LayoutOptions } from 'cytoscape';
 import { useAppStore } from '../store/appStore';
+import { useLocalizedOntology } from '../lib/rdf/i18n';
 import { ZoomIn, ZoomOut, Maximize2, RotateCcw, Download, Crosshair } from 'lucide-react';
 
 // Register fcose layout
@@ -54,7 +55,6 @@ export function OntologyGraph() {
   }, []);
   
   const {
-    currentOntology,
     selectedEntityId,
     selectedRelationshipId,
     highlightedEntities,
@@ -67,6 +67,7 @@ export function OntologyGraph() {
     darkMode,
     theme
   } = useAppStore();
+  const currentOntology = useLocalizedOntology();
 
   // Use refs for quest state to avoid re-creating the graph when quest changes
   const activeQuestRef = useRef(activeQuest);

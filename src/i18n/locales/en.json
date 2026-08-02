@@ -1,0 +1,10 @@
+{
+  "language": {
+    "name": "English",
+    "switchTo": "Switch language"
+  },
+  "common": {
+    "loading": "Loading…",
+    "notAvailable": "Not available in your language yet"
+  }
+}

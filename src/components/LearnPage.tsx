@@ -7,16 +7,27 @@ import type { Route } from '../lib/router';
 import type { LearnManifest, LearnCourse, LearnArticle } from '../types/learn';
 import type { Catalogue } from '../types/catalogue';
 import type { Core as CytoscapeCore, StylesheetCSS, LayoutOptions } from 'cytoscape';
+import { resolveCourse } from '../lib/learn/i18n';
 
 interface LearnPageProps {
   route: Route & { page: 'learn' };
 }
 
 export function LearnPage({ route }: LearnPageProps) {
-  const { darkMode, toggleDarkMode, theme } = useAppStore();
-  const [manifest, setManifest] = useState<LearnManifest | null>(null);
+  const { darkMode, toggleDarkMode, theme, locale } = useAppStore();
+  const [rawManifest, setRawManifest] = useState<LearnManifest | null>(null);
   const [error, setError] = useState<string | null>(null);
   const pageRef = useRef<HTMLDivElement>(null);
+
+  // Locale-resolved view of the manifest: falls back to English fields when
+  // a Korean translation is missing so partial translations still render.
+  const manifest = useMemo<LearnManifest | null>(() => {
+    if (!rawManifest) return null;
+    return {
+      ...rawManifest,
+      courses: rawManifest.courses.map((c) => resolveCourse(c, locale)),
+    };
+  }, [rawManifest, locale]);
 
   // Scroll to top when navigating
   useEffect(() => {
@@ -29,7 +40,7 @@ export function LearnPage({ route }: LearnPageProps) {
         if (!res.ok) throw new Error(`Failed to load (${res.status})`);
         return res.json() as Promise<LearnManifest>;
       })
-      .then(setManifest)
+      .then(setRawManifest)
       .catch((e) => setError(e.message));
   }, []);
 
