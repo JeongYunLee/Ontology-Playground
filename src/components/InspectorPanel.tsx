@@ -2,8 +2,10 @@ import { useRef, useEffect } from 'react';
 import { useAppStore } from '../store/appStore';
 import { useLocalizedOntology } from '../lib/rdf/i18n';
 import { Database, ArrowRight, Key, Link2, Layers, Box, GitBranch } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function InspectorPanel() {
+  const { t } = useTranslation();
   const { dataBindings, selectedEntityId, selectedRelationshipId, showDataBindings, activeQuest, currentStepIndex, advanceQuestStep } = useAppStore();
   const currentOntology = useLocalizedOntology();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -26,13 +28,13 @@ export function InspectorPanel() {
     return (
       <div ref={panelRef} className="inspector-panel">
         <div className="panel-header">
-          <h3 className="panel-title">Inspector</h3>
+          <h3 className="panel-title">{t('inspector.title')}</h3>
         </div>
         <div className="inspector-empty">
           <div className="inspector-empty-icon">🔍</div>
-          <div className="inspector-empty-title">Select an Element</div>
+          <div className="inspector-empty-title">{t('inspector.selectElement')}</div>
           <div className="inspector-empty-text">
-            Click on an entity type or relationship in the graph to inspect its properties, data bindings, and connections.
+            {t('inspector.selectHint')}
           </div>
         </div>
       </div>
@@ -49,7 +51,7 @@ export function InspectorPanel() {
     return (
       <div ref={panelRef} className="inspector-panel">
         <div className="panel-header">
-          <h3 className="panel-title">Relationship</h3>
+          <h3 className="panel-title">{t('inspector.relationship')}</h3>
         </div>
         <div className="inspector-content">
           <div className="relationship-header">
@@ -80,7 +82,7 @@ export function InspectorPanel() {
           <div className="inspector-section">
             <div className="section-title">
               <Layers size={14} />
-              Cardinality
+              {t('inspector.cardinality')}
             </div>
             <div className="cardinality-badge">{relationship.cardinality}</div>
           </div>
@@ -89,7 +91,7 @@ export function InspectorPanel() {
             <div className="inspector-section">
               <div className="section-title">
                 <Box size={14} />
-                Relationship Attributes
+                {t('inspector.relationshipAttributes')}
               </div>
               <div className="property-list">
                 {relationship.attributes.map(attr => (
@@ -119,7 +121,7 @@ export function InspectorPanel() {
   return (
     <div ref={panelRef} className="inspector-panel">
       <div className="panel-header">
-        <h3 className="panel-title">Entity Type</h3>
+        <h3 className="panel-title">{t('inspector.entityType')}</h3>
       </div>
       <div className="inspector-content">
         <div className="entity-header">
@@ -135,14 +137,14 @@ export function InspectorPanel() {
         <div className="inspector-section">
           <div className="section-title">
             <Key size={14} />
-            Properties ({entity.properties.length})
+            {t('inspector.properties')} ({entity.properties.length})
           </div>
           <div className="property-list">
             {entity.properties.map(prop => (
               <div key={prop.name} className="property-item" style={{ cursor: 'pointer' }} onClick={() => tryAdvancePropertyQuestStep(prop.name)}>
                 <div>
                   <span className="property-name">{prop.name}</span>
-                  {prop.isIdentifier && <span className="property-identifier">ID</span>}
+                  {prop.isIdentifier && <span className="property-identifier">{t('inspector.identifier')}</span>}
                   {prop.unit && <span className="property-type" style={{ marginLeft: 8 }}>({prop.unit})</span>}
                 </div>
                 <span className="property-type">{prop.type}</span>
@@ -154,14 +156,14 @@ export function InspectorPanel() {
         <div className="inspector-section">
           <div className="section-title">
             <GitBranch size={14} />
-            Relationships ({entityRelationships.length})
+            {t('inspector.relationships')} ({entityRelationships.length})
           </div>
           <div className="property-list">
             {entityRelationships.map(rel => {
               const isOutgoing = rel.from === selectedEntityId;
               const otherEntityId = isOutgoing ? rel.to : rel.from;
               const otherEntity = currentOntology.entityTypes.find(e => e.id === otherEntityId);
-              
+
               return (
                 <div key={rel.id} className="property-item rel-item">
                   <div className="rel-item-row">
@@ -190,7 +192,7 @@ export function InspectorPanel() {
           <div className="inspector-section">
             <div className="section-title">
               <Link2 size={14} />
-              Data Bindings
+              {t('inspector.dataBindings')}
             </div>
             <div className="binding-card">
               <div className="binding-source">

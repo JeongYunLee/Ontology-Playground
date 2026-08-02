@@ -1,43 +1,44 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface TourStep {
   target: string;        // CSS selector for the element to spotlight
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   placement: 'bottom' | 'top' | 'left' | 'right';
 }
 
 const tourSteps: TourStep[] = [
   {
     target: '.header',
-    title: 'Navigation & Actions',
-    description: 'Use the toolbar to access the Catalogue, Designer, Learn articles, Import/Export, and more. Press ⌘K anytime to open the command palette.',
+    titleKey: 'tour.step1Title',
+    descriptionKey: 'tour.step1Desc',
     placement: 'bottom',
   },
   {
     target: '.graph-container',
-    title: 'Ontology Graph',
-    description: 'This is your ontology visualized as an interactive graph. Click on entity nodes or relationship edges to inspect them.',
+    titleKey: 'tour.step2Title',
+    descriptionKey: 'tour.step2Desc',
     placement: 'bottom',
   },
   {
     target: '.quest-panel',
-    title: 'Quests',
-    description: 'Complete guided quests to learn ontology concepts step by step. Earn badges and points along the way!',
+    titleKey: 'tour.step3Title',
+    descriptionKey: 'tour.step3Desc',
     placement: 'right',
   },
   {
     target: '.right-sidebar',
-    title: 'Inspector & Query',
-    description: 'Select an entity to see its properties and data bindings. Use the query bar at the bottom to ask natural language questions.',
+    titleKey: 'tour.step4Title',
+    descriptionKey: 'tour.step4Desc',
     placement: 'left',
   },
   {
-    target: '.header-actions [data-tooltip="Designer"]',
-    title: 'Ontology Designer',
-    description: 'Build your own ontologies from scratch or start from a template. Export as RDF or submit to the community catalogue.',
+    target: '.header-actions [data-tooltip="Designer"], .header-actions [data-tooltip="디자이너"]',
+    titleKey: 'tour.step5Title',
+    descriptionKey: 'tour.step5Desc',
     placement: 'bottom',
   },
 ];
@@ -58,6 +59,7 @@ function isElementVisible(selector: string): boolean {
 }
 
 export function GuidedTour({ onComplete }: GuidedTourProps) {
+  const { t } = useTranslation();
   const [visibleSteps, setVisibleSteps] = useState<TourStep[]>([]);
   const [stepIdx, setStepIdx] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
@@ -175,28 +177,28 @@ export function GuidedTour({ onComplete }: GuidedTourProps) {
       >
         <div className="tour-tooltip-header">
           <span className="tour-tooltip-step">{stepIdx + 1}/{visibleSteps.length}</span>
-          <button className="tour-tooltip-close" onClick={dismiss} aria-label="Close tour">
+          <button className="tour-tooltip-close" onClick={dismiss} aria-label={t('tour.closeTour')}>
             <X size={16} />
           </button>
         </div>
-        <h4 className="tour-tooltip-title">{current.title}</h4>
-        <p className="tour-tooltip-desc">{current.description}</p>
+        <h4 className="tour-tooltip-title">{t(current.titleKey)}</h4>
+        <p className="tour-tooltip-desc">{t(current.descriptionKey)}</p>
         <div className="tour-tooltip-actions">
           {stepIdx > 0 && (
             <button className="tour-btn tour-btn-secondary" onClick={prev}>
-              <ChevronLeft size={14} /> Back
+              <ChevronLeft size={14} /> {t('common.back')}
             </button>
           )}
           <button className="tour-btn tour-btn-primary" onClick={next}>
             {stepIdx < visibleSteps.length - 1 ? (
-              <>Next <ChevronRight size={14} /></>
+              <>{t('common.next')} <ChevronRight size={14} /></>
             ) : (
-              'Get started!'
+              t('tour.getStarted')
             )}
           </button>
         </div>
         <button className="tour-skip" onClick={dismiss}>
-          Skip tour · don't show again
+          {t('tour.skip')}
         </button>
       </motion.div>
     </AnimatePresence>

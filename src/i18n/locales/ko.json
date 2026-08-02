@@ -5,6 +5,103 @@
   },
   "common": {
     "loading": "불러오는 중…",
-    "notAvailable": "아직 한국어로 제공되지 않는 항목입니다"
+    "notAvailable": "아직 한국어로 제공되지 않는 항목입니다",
+    "close": "닫기",
+    "back": "뒤로",
+    "next": "다음",
+    "clear": "지우기"
+  },
+  "header": {
+    "title": "Ontology Playground",
+    "preview": "(미리 보기)",
+    "points": "포인트",
+    "badges": "배지",
+    "share": "공유",
+    "shareCopied": "링크 복사됨!",
+    "shareDownloaded": "다운로드 완료",
+    "shareTooltip": "이 온톨로지를 링크로 공유",
+    "shareTooltipCopy": "이 온톨로지의 공유 링크 복사",
+    "summary": "요약",
+    "summaryTooltip": "온톨로지 요약 보기",
+    "aiBuilder": "AI 빌더",
+    "catalogue": "카탈로그",
+    "designer": "디자이너",
+    "ontologySchool": "온톨로지 스쿨",
+    "importExport": "가져오기 / 내보내기",
+    "help": "도움말",
+    "about": "정보",
+    "dataSources": "데이터 소스",
+    "theme": "테마",
+    "menu": "메뉴"
+  },
+  "welcome": {
+    "title": "Ontology Playground(미리 보기)에 오신 것을 환영합니다",
+    "subtitle": "Fourth Coffee 예제로 Microsoft Fabric IQ 온톨로지를 탐색해 보세요",
+    "entityTypesTitle": "엔티티 타입",
+    "entityTypesText": "고객·상품·주문 같은 재사용 가능한 논리 모델을 발견합니다",
+    "relationshipsTitle": "관계",
+    "relationshipsText": "엔티티들이 타입 있는 방향성 링크로 어떻게 연결되는지 봅니다",
+    "dataBindingsTitle": "데이터 바인딩",
+    "dataBindingsText": "온톨로지 개념을 실제 데이터 플랫폼 소스에 연결합니다",
+    "nlQueriesTitle": "자연어 쿼리",
+    "nlQueriesText": "자연어로 질문하고 그래프를 순회해 보세요",
+    "startExploring": "탐색 시작하기",
+    "footer": "퀘스트를 완료해 배지를 얻고 Microsoft Fabric IQ 온톨로지를 배워 보세요"
+  },
+  "tour": {
+    "step1Title": "내비게이션 & 액션",
+    "step1Desc": "툴바로 카탈로그·디자이너·학습 아티클·가져오기/내보내기 등에 접근하세요. 언제든 ⌘K로 명령 팔레트를 열 수 있습니다.",
+    "step2Title": "온톨로지 그래프",
+    "step2Desc": "이곳이 상호작용 그래프로 시각화된 여러분의 온톨로지입니다. 엔티티 노드나 관계 엣지를 클릭해 살펴보세요.",
+    "step3Title": "퀘스트",
+    "step3Desc": "안내형 퀘스트를 완료해 온톨로지 개념을 단계별로 배웁니다. 진행하며 배지와 포인트를 얻으세요!",
+    "step4Title": "인스펙터 & 쿼리",
+    "step4Desc": "엔티티를 선택해 속성과 데이터 바인딩을 확인하세요. 하단 쿼리 바에서 자연어 질문을 던져 보세요.",
+    "step5Title": "온톨로지 디자이너",
+    "step5Desc": "여러분만의 온톨로지를 처음부터 만들거나 템플릿으로 시작하세요. RDF로 내보내거나 커뮤니티 카탈로그에 제출할 수 있습니다.",
+    "closeTour": "투어 닫기",
+    "getStarted": "시작해 보세요!",
+    "skip": "투어 건너뛰기 · 다시 보지 않기"
+  },
+  "quest": {
+    "title": "퀘스트",
+    "abandon": "포기",
+    "earnedBadges": "획득한 배지",
+    "totalPoints": "총 {{points}} 포인트",
+    "questPoints": "+{{points}} 포인트"
+  },
+  "inspector": {
+    "title": "인스펙터",
+    "entityType": "엔티티 타입",
+    "relationship": "관계",
+    "selectElement": "요소를 선택하세요",
+    "selectHint": "그래프에서 엔티티 타입이나 관계를 클릭해 속성·데이터 바인딩·연결을 살펴보세요.",
+    "cardinality": "카디널리티",
+    "relationshipAttributes": "관계 속성",
+    "properties": "속성",
+    "relationships": "관계",
+    "dataBindings": "데이터 바인딩",
+    "identifier": "ID"
+  },
+  "query": {
+    "title": "자연어 쿼리 (NL2Ontology)",
+    "placeholder": "{{ontology}}에 대해 질문하세요…",
+    "tryAsking": "이런 질문을 해 보세요:",
+    "clear": "지우기",
+    "clearAria": "쿼리 지우기",
+    "run": "쿼리 실행"
+  },
+  "search": {
+    "title": "검색 & 필터",
+    "placeholder": "엔티티·속성 검색…",
+    "entities": "엔티티",
+    "relationships": "관계",
+    "noResults": "\"{{query}}\"에 대한 결과 없음",
+    "resultsAria": "검색 결과"
+  },
+  "footer": {
+    "builtWith": "GitHub Copilot으로 제작",
+    "supervisedBy": "감수: videlalvaro",
+    "deployedCommit": "배포 커밋 {{sha}}"
   }
 }

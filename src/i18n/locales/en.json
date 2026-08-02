@@ -5,6 +5,103 @@
   },
   "common": {
     "loading": "Loading…",
-    "notAvailable": "Not available in your language yet"
+    "notAvailable": "Not available in your language yet",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "clear": "Clear"
+  },
+  "header": {
+    "title": "Ontology Playground",
+    "preview": "(Preview)",
+    "points": "points",
+    "badges": "badges",
+    "share": "Share",
+    "shareCopied": "Link copied!",
+    "shareDownloaded": "Downloaded",
+    "shareTooltip": "Share this ontology via link",
+    "shareTooltipCopy": "Copy shareable link to this ontology",
+    "summary": "Summary",
+    "summaryTooltip": "View Ontology Summary",
+    "aiBuilder": "AI Builder",
+    "catalogue": "Catalogue",
+    "designer": "Designer",
+    "ontologySchool": "Ontology School",
+    "importExport": "Import / Export",
+    "help": "Help",
+    "about": "About",
+    "dataSources": "Data Sources",
+    "theme": "Theme",
+    "menu": "Menu"
+  },
+  "welcome": {
+    "title": "Welcome to Ontology Playground (Preview)",
+    "subtitle": "Explore Microsoft Fabric IQ Ontology through the lens of Fourth Coffee",
+    "entityTypesTitle": "Entity Types",
+    "entityTypesText": "Discover reusable logical models like Customer, Product, and Order",
+    "relationshipsTitle": "Relationships",
+    "relationshipsText": "See how entities connect with typed, directional links",
+    "dataBindingsTitle": "Data Bindings",
+    "dataBindingsText": "Connect ontology concepts to real data platform sources",
+    "nlQueriesTitle": "NL Queries",
+    "nlQueriesText": "Ask questions in natural language and traverse the graph",
+    "startExploring": "Start Exploring",
+    "footer": "Complete quests to earn badges and learn about Microsoft Fabric IQ Ontology"
+  },
+  "tour": {
+    "step1Title": "Navigation & Actions",
+    "step1Desc": "Use the toolbar to access the Catalogue, Designer, Learn articles, Import/Export, and more. Press ⌘K anytime to open the command palette.",
+    "step2Title": "Ontology Graph",
+    "step2Desc": "This is your ontology visualized as an interactive graph. Click on entity nodes or relationship edges to inspect them.",
+    "step3Title": "Quests",
+    "step3Desc": "Complete guided quests to learn ontology concepts step by step. Earn badges and points along the way!",
+    "step4Title": "Inspector & Query",
+    "step4Desc": "Select an entity to see its properties and data bindings. Use the query bar at the bottom to ask natural language questions.",
+    "step5Title": "Ontology Designer",
+    "step5Desc": "Build your own ontologies from scratch or start from a template. Export as RDF or submit to the community catalogue.",
+    "closeTour": "Close tour",
+    "getStarted": "Get started!",
+    "skip": "Skip tour · don't show again"
+  },
+  "quest": {
+    "title": "Quests",
+    "abandon": "Abandon",
+    "earnedBadges": "Earned Badges",
+    "totalPoints": "Total: {{points}} points",
+    "questPoints": "+{{points}} pts"
+  },
+  "inspector": {
+    "title": "Inspector",
+    "entityType": "Entity Type",
+    "relationship": "Relationship",
+    "selectElement": "Select an Element",
+    "selectHint": "Click on an entity type or relationship in the graph to inspect its properties, data bindings, and connections.",
+    "cardinality": "Cardinality",
+    "relationshipAttributes": "Relationship Attributes",
+    "properties": "Properties",
+    "relationships": "Relationships",
+    "dataBindings": "Data Bindings",
+    "identifier": "ID"
+  },
+  "query": {
+    "title": "Natural Language Query (NL2Ontology)",
+    "placeholder": "Ask about {{ontology}}…",
+    "tryAsking": "Try asking:",
+    "clear": "Clear",
+    "clearAria": "Clear query",
+    "run": "Run query"
+  },
+  "search": {
+    "title": "Search & Filter",
+    "placeholder": "Search entities, properties…",
+    "entities": "Entities",
+    "relationships": "Relationships",
+    "noResults": "No results for \"{{query}}\"",
+    "resultsAria": "Search results"
+  },
+  "footer": {
+    "builtWith": "Built with GitHub Copilot",
+    "supervisedBy": "Supervised by videlalvaro",
+    "deployedCommit": "Deployed commit {{sha}}"
   }
 }

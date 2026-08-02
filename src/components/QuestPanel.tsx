@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppStore } from '../store/appStore';
 import { Trophy, Star, X, CheckCircle, Lightbulb, Target } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function QuestPanel() {
+  const { t } = useTranslation();
   const {
     availableQuests,
     activeQuest,
@@ -19,7 +21,7 @@ export function QuestPanel() {
       <div className="panel-header">
         <h3 className="panel-title">
           <Target size={16} style={{ marginRight: 8 }} />
-          Quests
+          {t('quest.title')}
         </h3>
       </div>
 
@@ -36,7 +38,7 @@ export function QuestPanel() {
               <Target size={18} />
               {activeQuest.title}
             </div>
-            
+
             <div className="quest-progress">
               <div className="progress-bar">
                 <motion.div
@@ -71,7 +73,7 @@ export function QuestPanel() {
             <div className="quest-actions">
               <button className="btn btn-secondary" onClick={abandonQuest}>
                 <X size={16} />
-                Abandon
+                {t('quest.abandon')}
               </button>
             </div>
           </motion.div>
@@ -105,7 +107,7 @@ export function QuestPanel() {
               <div className="quest-reward">
                 <Trophy size={14} />
                 <span>{quest.reward.badgeIcon} {quest.reward.badge}</span>
-                <span className="quest-points">+{quest.reward.points} pts</span>
+                <span className="quest-points">{t('quest.questPoints', { points: quest.reward.points })}</span>
               </div>
             </motion.div>
           );
@@ -117,7 +119,7 @@ export function QuestPanel() {
         <div className="badges-panel">
           <div className="section-title">
             <Star size={14} />
-            Earned Badges ({earnedBadges.length})
+            {t('quest.earnedBadges')} ({earnedBadges.length})
           </div>
           <div className="badges-grid">
             {earnedBadges.map((badge, index) => (
@@ -134,7 +136,7 @@ export function QuestPanel() {
             ))}
           </div>
           <div style={{ marginTop: 8, fontSize: 12, color: 'var(--ms-yellow)', fontWeight: 600 }}>
-            Total: {totalPoints} points
+            {t('quest.totalPoints', { points: totalPoints })}
           </div>
         </div>
       )}
